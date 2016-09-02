@@ -4,6 +4,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,7 +13,11 @@ import java.util.List;
 public class OrderSaver {
     public void save(List<Order> orderList){
         try {
-            File file = new File(".\\file.xml");
+            File xmlFile = new File("C:\\Orders\\orders.xml");
+            if(!xmlFile.exists()) {
+                xmlFile.getParentFile().mkdir();
+                xmlFile.createNewFile();
+            }
             JAXBContext orderContext = JAXBContext.newInstance(OrderCollection.class);
             Marshaller orderMarshaller = orderContext.createMarshaller();
             OrderCollection orderCollection = new OrderCollection();
@@ -21,8 +26,8 @@ public class OrderSaver {
 
             // output pretty printed
             orderMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            orderMarshaller.marshal(orderCollection, file);
-        } catch (JAXBException e) {
+            orderMarshaller.marshal(orderCollection, xmlFile);
+        } catch (JAXBException | IOException e) {
             e.printStackTrace();
         }
 

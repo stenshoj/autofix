@@ -12,7 +12,6 @@ public class Autofix {
     static Menu mainMenu = new Menu();
     static Scanner scanner = new Scanner(System.in);
 
-
     public static void main(String[] args) throws JAXBException {
         OrderSaver saver = new OrderSaver();
         OrderLoader loader = new OrderLoader();
@@ -67,10 +66,18 @@ public class Autofix {
     }
 
     private static void listOrders(List<Order> orderList) {
-        TextTable tt = getTextTable(orderList);
-        tt.printTable();
+        if(orderList.size() < 1) {
+            System.out.println("There are no orders to show");
+        }
+        else {
+            TextTable tt = getTextTable(orderList);
+            tt.printTable();
+        }
     }
 
+    /**
+     * package source: https://code.google.com/archive/p/j-text-utils/wikis/UsingTextTable.wiki
+     */
     private static TextTable getTextTable(List<Order> orderList) {
         String[] orderColumnTitles = {
                 "Customer Name",

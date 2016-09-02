@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 /**
  * Created by 52947 on 29-08-2016.
+ * Credit to Michael Nielsen. Seen on codeblog.dk
  */
 public class Menu {
 
